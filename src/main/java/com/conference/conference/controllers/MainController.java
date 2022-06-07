@@ -1,4 +1,4 @@
-package controllers;
+package com.conference.conference.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
