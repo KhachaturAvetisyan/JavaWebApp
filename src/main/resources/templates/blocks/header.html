@@ -12,6 +12,12 @@
                         <li><a href="#" class="text-white">Follow on Twitter</a></li>
                         <li><a href="#" class="text-white">Like on Facebook</a></li>
                         <li><a href="#" class="text-white">Email me</a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+    <!--                            <li><a th:href="@{/logout}" type="submit" class="text-white">Sign Out</a></li>-->
+                                <input type="submit" value="Sign Out"/>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
