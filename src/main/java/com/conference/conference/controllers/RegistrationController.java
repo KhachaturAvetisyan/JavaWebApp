@@ -1,41 +1,34 @@
 package com.conference.conference.controllers;
 
-import com.conference.conference.models.Role;
-import com.conference.conference.models.User;
-import com.conference.conference.repos.UserRepo;
+import com.conference.conference.models.RegistrationForm;
+import com.conference.conference.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Collections;
-import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class RegistrationController {
+@RequestMapping("/registration")
+public class RegistrationController
+{
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/registration")
+    @GetMapping
     public String registration()
     {
         return "registration";
     }
 
-    @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model)
+    @PostMapping
+    public String processUser(RegistrationForm form)
     {
-        User userFromDb = userRepo.findByUsername((user.getUsername()));
-
-        if (userFromDb != null)
-        {
-            model.put("message", "User exists!");
-            return "registration";
-        }
-
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
-
+        userRepo.save(form.toUser(passwordEncoder));
         return "redirect:/login";
     }
 }
