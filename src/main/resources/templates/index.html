@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index Page</title>
@@ -7,8 +7,9 @@
 <body>
 
 <p th:text="${user}"></p>
+<p th:text="${user_role}"></p>
 
-<form th:if="${user != 'anonymous}" th:action="@{/logout}">
+<form th:if="${user != 'anonymous'}" th:action="@{/logout}">
     <input type="submit" value="logout">
 </form>
 
@@ -16,8 +17,8 @@
 
 <a th:href="@{/login}">login page</a><br>
 <a th:href="@{/registration}">registration page</a><br>
-<a th:href="@{/foruser}">foruser page</a><br>
-<a th:href="@{/foradmin}">foradmin page</a><br>
+<a th:href="@{/user}">foruser page</a><br>
+<a th:href="@{/admin}">foradmin page</a><br>
 
 </body>
 </html>
