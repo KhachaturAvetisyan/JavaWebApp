@@ -1,4 +1,4 @@
-package com.conference.conference.models;
+package com.conference.conference.models.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

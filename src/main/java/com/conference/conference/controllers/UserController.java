@@ -1,6 +1,8 @@
 package com.conference.conference.controllers;
 
 import com.conference.conference.models.User;
+import com.conference.conference.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -9,18 +11,17 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/")
-public class HomeController
-{
-    @GetMapping
+@RequiredArgsConstructor
+public class UserController {
+    private final UserService userService;
+
+    @GetMapping("/")
     public String index(@AuthenticationPrincipal User user, Model model)
     {
         if (user != null)
@@ -36,8 +37,7 @@ public class HomeController
     }
 
     @GetMapping("/login")
-    public String login()
-    {
+    public String login() {
         return "login";
     }
 
@@ -52,19 +52,20 @@ public class HomeController
         return "redirect:/";
     }
 
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @GetMapping("/registration")
+    public String registration() {
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String createUser(User user) {
+        userService.createUser(user);
+        return "redirect:/login";
+    }
+
     @GetMapping("/user")
     public String forUser()
     {
-        System.out.println("open page foruser");
         return "foruser";
-    }
-
-//    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/admin")
-    public String forAdmin()
-    {
-        System.out.println("open page foradmin");
-        return "foradmin";
     }
 }
