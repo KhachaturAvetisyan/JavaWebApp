@@ -21,20 +21,20 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
     private final UserService userService;
 
-//    @GetMapping("/")
-//    public String index(@AuthenticationPrincipal User user, Model model)
-//    {
-//        if (user != null)
-//        {
-//            model.addAttribute("user", user.getUsername());
-//            model.addAttribute("user_role", user.getRoles());
-//            return "index";
-//        }
-//
-//        model.addAttribute("user", "anonymous");
-//        model.addAttribute("user_role", "anonymous");
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String index(@AuthenticationPrincipal User user, Model model)
+    {
+        if (user != null)
+        {
+            model.addAttribute("user", user.getUsername());
+            model.addAttribute("user_role", user.getRoles());
+            return "index";
+        }
+
+        model.addAttribute("user", "anonymous");
+        model.addAttribute("user_role", "anonymous");
+        return "index";
+    }
 
     @GetMapping("/login")
     public String login() {
