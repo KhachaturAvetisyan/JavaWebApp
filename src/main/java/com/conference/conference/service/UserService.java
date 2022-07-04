@@ -22,9 +22,12 @@ public class UserService
             return;
 
         String username = user.getUsername();
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(Role.USER);
+        user.getRoles().add(Role.LISTENER);
+
         log.info("Saving new User with username: {}", username);
+
         userRepo.save(user);
 
     }

@@ -3,7 +3,6 @@ package com.conference.conference.controllers;
 import com.conference.conference.models.User;
 import com.conference.conference.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal User user, Model model)
-    {
-        if (user != null)
-        {
+    public String index(@AuthenticationPrincipal User user, Model model) {
+        if (user != null) {
             model.addAttribute("user", user.getUsername());
             model.addAttribute("user_role", user.getRoles());
             return "index";
@@ -42,8 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response)
-    {
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null)
@@ -64,8 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String forUser()
-    {
+    public String forUser() {
         return "foruser";
     }
 }
